@@ -1,8 +1,9 @@
 # DataMatching
-This file was originally created to solve a problem in our district. We use parentsquare for various safe communications between staff, students and parents. An issue with our instance was that in Qmlativ (where our data was taken from to populate ParentSquare) staff members who are also parents were having their district email address set as their personal. To Solve this I created this script to take a file of staff guardians and match their userID in that file to the same userID in another file and then using that index replace their existing personal email address (Which was storing their work email at this point) with their true personal email address. Paramiko is then used to upload that updated file to a ParentSquare sftp server. 
+A script used to cleanup and replace emails in a file uploaded to CSV to save time from manual replacements.
 
-This script could ulitmately be used as a jumping off point for any data validation between two diferent csvs. Find the key for mapping user to user (or any form of data that matches across two csvs) and enter the value into the correct column. Then upload to a server if needed.
+# Tech Stack - Python, Polars, Paramiko
 
-Any variables or referneces to specific data or locations has been replaced with generic text.
+* Updated 3/20/26 *
+Improved version of the ParentSquare.py file. Replaced the Pandas data manipulation with Polars to increase speed and modernize the program.
 
-I put this ReadME in the wrong spot initially. Still figuring out the nuances of GitHub Repos :^)
+At the district we use ParentSquare for district-to-family communications. ParentSquare populates emails based on information from our SIS. Staff who are also parents by default were having their district email listed in ParentSquare rather than their personal emails. This script takes in two csv files, one that comes daily from the SIS and contains all parents, their emails and student IDs they are associated with. The other is a relatively static csv of staff email to personal email mappings. Using Polars, the script will replace the staff emails with personal and write the validated data to a csv. Paramiko is then used to put the file on ParentSquare's sftp server. A function is also ran to delete old files (Our SIS uses a weird method of overwriting that causes duplicate files to be written).
