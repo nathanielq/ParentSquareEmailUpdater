@@ -63,7 +63,7 @@ def Delete_File():
         if '_21' in name:
             print(f'Deleting {name}..')
             try:
-                os.remove((config.guardians_dir + name))
+                os.remove((name))
             except FileNotFoundError:
                 print(f'{name} not found, unable to delete')
             except PermissionError:
